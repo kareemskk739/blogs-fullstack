@@ -145,5 +145,5 @@ SIMPLE_JWT = {
 
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:5173",  # for local testing
-    "https://your-frontend.vercel.app",  # 👈 add this
+    "https://blogs-fullstack.vercel.app",  # 👈 add this
 ]
