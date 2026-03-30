@@ -5,7 +5,7 @@ import axiosInstance from "./axiosInstance"
 
 export const registerThunk = createAsyncThunk('register/', async (payload, thunkAPI) => {
     try {
-        const res = await axios.post('http://127.0.0.1:8000/api/v1/register/', payload)
+        const res = await axios.post('https://blog-backend-ormm.onrender.com/api/v1/register/', payload)
         return res.data
     } catch (error) {
         return thunkAPI.rejectWithValue(
@@ -21,7 +21,7 @@ export const registerThunk = createAsyncThunk('register/', async (payload, thunk
 
 export const loginUser = createAsyncThunk('login/', async (payload, thunkAPI) => {
     try {
-        const response = await axios.post('http://127.0.0.1:8000/api/v1/token/', payload)
+        const response = await axios.post('https://blog-backend-ormm.onrender.com/api/v1/token/', payload)
         return response.data
     } catch (error) {
         return thunkAPI.rejectWithValue(
@@ -36,7 +36,7 @@ export const loginUser = createAsyncThunk('login/', async (payload, thunkAPI) =>
 export const logoutUser = createAsyncThunk('logout', async (payload, thunkAPI) => {
     const { refresh } = payload
     try {
-        const res = await axios.post('http://127.0.0.1:8000/api/v1/logout/', { refresh })
+        const res = await axios.post('https://blog-backend-ormm.onrender.com/api/v1/logout/', { refresh })
         return res.data
     } catch (error) {
         return thunkAPI.rejectWithValue(

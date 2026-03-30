@@ -133,13 +133,13 @@ export const getBlogsData=createAsyncThunk('blogs/',async(payload,thunkAPI)=>{
 })
 
 export const getOwnersData=createAsyncThunk('owners/',async()=>{
-    const response=await axios.get('http://127.0.0.1:8000/api/v1/owners/')
+    const response=await axios.get('https://blog-backend-ormm.onrender.com/api/v1/owners/')
     
     return response.data
 })
 
 export const getCommentsData=createAsyncThunk('comments/',async()=>{
-    const response=await axios.get('http://127.0.0.1:8000/api/v1/comments/')
+    const response=await axios.get('https://blog-backend-ormm.onrender.com/api/v1/comments/')
     
     return response.data
 })
