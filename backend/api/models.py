@@ -2,7 +2,6 @@ from django.db import models
 from django.utils.text import slugify
 from django.contrib.auth.models import User
 
-# Create your models here.
 
 class Owner(models.Model):
     name=models.CharField(max_length=100)
@@ -24,8 +23,6 @@ class Comment(models.Model):
     blog=models.ForeignKey(Blog, related_name='comments',on_delete=models.CASCADE)
     def __str__(self):
             return self.commented_by
-
-
 
 class RequestPermission(models.Model):
       STATUS_CHOICES = [

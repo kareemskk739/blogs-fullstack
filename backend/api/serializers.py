@@ -16,18 +16,8 @@ class TokenSerializer(TokenObtainPairSerializer):
         return token
     
     def validate(self, attrs):
-        data=super().validate(attrs)
-
-        # if not user.is_superuser:
-        #     if not user.groups.exists():
-        #         viewer_group, _ = Group.objects.get_or_create(name='Viewer')
-        #         user.groups.add(viewer_group)
-        #         print('assigned to Viewer group')
-        return data
+        return super().validate(attrs)
         
-
-
-
 
 class CommentSerializer(serializers.ModelSerializer):
     blog_title=serializers.SerializerMethodField()

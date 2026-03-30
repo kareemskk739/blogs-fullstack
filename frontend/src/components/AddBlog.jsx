@@ -24,35 +24,34 @@ function AddBlog() {
     const dispatch = useDispatch()
     const navigate = useNavigate()
     const { message, ownersData,errorMessage} = useSelector(state => state.myReducer)
+    
     const {accessToken} =useSelector(state=>state.authReducer)
    const decoded = accessToken ? JSON.parse(atob(accessToken.split('.')[1])) : null
 const username = decoded?.username
 const currentOwner = ownersData?.find(owner => owner.name === username)
+
 const ownerId = currentOwner?.id
-  console.log(message)
+
 
     useEffect(() => {
         dispatch(getOwnersData())
     }, [])
 
     useEffect(()=>{
-      const timer=setTimeout(()=>{ dispatch(emptyMessage()
-    )},10000)
-    return ()=>{clearTimeout(timer)}
-    },[message,errorMessage])
+      dispatch(emptyMessage())
+    },[])
  
 
     return (
         <div className="min-h-screen bg-gray-100">
 
-            {/* Top Bar */}
-            <div className="bg-purple-700 px-4 py-3 flex justify-center items-center">
-                <span className="text-white text-xs font-medium">
-                    👤 Welcome, <span className="font-bold text-base capitalize">{localStorage.getItem('username') || 'User'}</span>
+            <div className="bg-teal-500 px-4 py-3 flex justify-center items-center">
+                <span className="text-white text-lg font-medium">
+                    👤 Welcome, <span className="font-bold text-xl capitalize">{localStorage.getItem('username') || 'User'}</span>
                 </span>
             </div>
 
-            {/* Navbar */}
+          
             <nav className="bg-white shadow-md px-4 py-3 flex justify-between items-center">
                 <h1 className="text-sm sm:text-base md:text-lg lg:text-xl font-bold text-purple-600">📝 BlogSpace</h1>
                 <button
@@ -68,23 +67,24 @@ const ownerId = currentOwner?.id
               
              {message && (
                         <div className="bg-green-100 text-green-700 px-4 py-3 rounded-lg text-center text-sm mb-6">
-                            ✅ {message}
+                           
                         </div>
                     )}
              {errorMessage && (
                         <div className="bg-red-100 text-red-700 px-4 py-5 rounded-lg text-center text-sm mb-6">
-                            x {errorMessage.detail}
+                            x {errorMessage}
                         </div>
                     )}
             {errorMessage && <Link component="button"
       variant="body2"
       onClick={() => { 
+        dispatch(emptyMessage())
         navigate('/requestforchange') 
       }}>get permission to add a blog?</Link>}
             <div className="flex items-center justify-center px-4 py-10">
                 <div className="bg-white rounded-2xl shadow-lg w-full max-w-lg p-8">
 
-                    {/* Header */}
+              
                     <div className="text-center mb-8">
                         <div className="bg-purple-100 rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-3">
                             <span className="text-3xl">✍️</span>
@@ -93,7 +93,7 @@ const ownerId = currentOwner?.id
                         <p className="text-gray-500 text-sm mt-1">Fill in the details to publish your blog</p>
                     </div>
 
-                    {/* Success Message */}
+                 
 
                     <Formik
                         initialValues={{
@@ -116,6 +116,9 @@ const ownerId = currentOwner?.id
                                 
                             } finally {
                                 setSubmitting(false)
+                                setTimeout(()=>{
+                                    dispatch(emptyMessage())
+                                },3000)
                             }
                         }}
                     >
@@ -131,7 +134,7 @@ const ownerId = currentOwner?.id
                                         name="title"
                                         type="text"
                                         placeholder="Enter blog title"
-                                        className={`border rounded-lg px-4 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-purple-400 bg-white
+                                        className={`border rounded-lg px-4 py-2 text-center text-sm focus:outline-none focus:ring-2 focus:ring-purple-400 bg-white
                                             ${errors.title && touched.title ? 'border-red-400' : 'border-gray-300'}`}
                                     />
                                     {errors.title && touched.title && (
@@ -141,7 +144,7 @@ const ownerId = currentOwner?.id
 
                                 {/* Description */}
                                 <div className="flex flex-col gap-1">
-                                    <label className="text-sm font-medium text-gray-700">
+                                    <label className="text-sm  font-medium text-gray-700">
                                         📝 Description
                                     </label>
                                     <Field
@@ -149,7 +152,7 @@ const ownerId = currentOwner?.id
                                         as="textarea"
                                         rows="4"
                                         placeholder="Write your blog description..."
-                                        className={`border rounded-lg px-4 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-purple-400 bg-white resize-none
+                                        className={`border rounded-lg px-4 text-center py-2 text-sm focus:outline-none focus:ring-2 focus:ring-purple-400 bg-white resize-none
                                             ${errors.description && touched.description ? 'border-red-400' : 'border-gray-300'}`}
                                     />
                                     {errors.description && touched.description && (

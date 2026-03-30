@@ -10,7 +10,7 @@ function AdminPanel() {
         dispatch(getPendingRequests())
     }, [])
 
- 
+
     useEffect(() => {
         if (message) {
             const timer = setTimeout(() => dispatch(clearMessages()), 5000)
@@ -26,14 +26,14 @@ function AdminPanel() {
             })).unwrap()
             dispatch(getPendingRequests())
         } catch (error) {
-            console.log(error)
+
         }
     }
 
     return (
         <div className="min-h-screen bg-gradient-to-br from-purple-100 via-white to-gray-100 px-4 py-10">
 
-       
+
             {errorMessage ? (
                 <div className="flex items-center justify-center min-h-[80vh]">
                     <div className="w-64 sm:w-72 md:w-80 aspect-square bg-white/80 backdrop-blur-lg border border-red-200 rounded-2xl shadow-xl flex flex-col items-center justify-center text-center p-6">
@@ -74,7 +74,7 @@ function AdminPanel() {
                                         className="w-full max-w-sm bg-white rounded-2xl shadow-md p-5 flex flex-col gap-3 hover:shadow-xl transition duration-300 transform hover:-translate-y-1"
                                         style={{ animationDelay: `${index * 0.1}s` }}
                                     >
-                                     
+
                                         <div>
                                             <p className="font-semibold text-gray-800 text-base">
                                                 👤 {req.username}
@@ -87,14 +87,14 @@ function AdminPanel() {
                                             </p>
                                         </div>
 
-                                     
+
                                         {req.reason && (
                                             <p className="text-sm text-gray-600 bg-gray-50 px-3 py-2 rounded-lg">
                                                 💬 {req.reason}
                                             </p>
                                         )}
 
-                                       
+
                                         <div className="flex gap-2 mt-auto">
                                             <button
                                                 onClick={() => handleAction(req.id, 'Approved')}

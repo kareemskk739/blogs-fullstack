@@ -1,12 +1,8 @@
 import { createSlice,createAsyncThunk} from "@reduxjs/toolkit";
 
 import axios from 'axios'
-import { data } from "react-router-dom";
 
 import axiosInstance from "./axiosInstance";
-
-import { useNavigate } from "react-router-dom";
-
 
 
 const mySlice=createSlice({
@@ -18,8 +14,8 @@ const mySlice=createSlice({
 
        },
        emptyMessage:(state,action)=>{
-        state.message=''
-        state.errorMessage=''
+        state.message=null
+        state.errorMessage=null
        }
     },
     extraReducers:(builder)=>{
@@ -42,45 +38,17 @@ const mySlice=createSlice({
 
     })
 
-    // builder.addCase(registerThunk.fulfilled,(state,action)=>{
-    //     state.userRegister=action.payload
-        
-    // })
-    // builder.addCase(loginUser.fulfilled,(state,action)=>{
-    //     state.errorMessage=null
-    //     state.isLoggedIn=true
-    //     
-    //     state.accessToken=action.payload.access
-    //     state.refreshToken=action.payload.refresh
-    //     localStorage.setItem('access',action.payload.access)
-    //     localStorage.setItem('refresh',action.payload.refresh)
-       
-    // })
-    // builder.addCase(loginUser.rejected,(state,action)=>{
-    //       
-
-    //      state.errorMessage=action.payload.detail
-    // })
-
-    // builder.addCase(logoutUser.fulfilled, (state,action) => {
-    //   localStorage.removeItem("access");
-    //   localStorage.removeItem("refresh");
-    //   
-    //   state.isLoggedIn=false
-    // })
-
-    // builder.addCase(logoutUser.rejected,(state,action)=>{
-    //     state.errorMessage=action.payload.detail
-    // })
 
     builder.addCase(addBlog.fulfilled,(state,action)=>{
         
 
-         state.message=`Successfully added the blog with title: ${action.payload.title}`   
-         state.errorMessage=null
+         state.message=`Successfully added the blog with title: ${action.payload.title}`  
+         state.errorMessage=null 
+        
     })
     .addCase(addBlog.rejected,(state,action)=>{
         state.errorMessage=action.payload
+        state.message=null
     })
 
     builder.addCase(searchByBlog.fulfilled,(state,action)=>{
@@ -135,19 +103,19 @@ const mySlice=createSlice({
         state.blog=action.payload
     })
     .addCase(RequestChange.fulfilled,(state,action)=>{
+         
          state.message=action.payload.message
+    
+         state.errorMessage=null
     })
     .addCase(RequestChange.rejected,(state,action)=>{
         
-        state.message=action.payload
+      
+        state.errorMessage=action.payload
+        state.message=null
     })
-
-  
-
     
     }
-
-
 })
 // 'http://127.0.0.1:8000/api/v1/blogs/'
 export const getBlogsData=createAsyncThunk('blogs/',async(payload,thunkAPI)=>{
@@ -176,43 +144,6 @@ export const getCommentsData=createAsyncThunk('comments/',async()=>{
     return response.data
 })
 
-// export const registerThunk=createAsyncThunk('register/',async(payload,thunkAPI)=>{
-//     try{
-//       const res=await axios.post('http://127.0.0.1:8000/api/v1/register/',payload)
-//       return res.data
-//     }
-//     catch(error){
-//       return thunkAPI.rejectWithValue(
-//         error.response?.data || "Something went wrong"
-//       )
-//     }
-// })
-
-// export const loginUser=createAsyncThunk('login/',async(payload,thunkAPI)=>{
-//     try{
-//        const response= await axios.post('http://127.0.0.1:8000/api/v1/token/',
-//         payload
-//        )
-//        return response.data
-//     }
-//     catch(error){
-//         
-//       return thunkAPI.rejectWithValue(
-//         error.response?.data || "cant log in " 
-//       )
-//     }
-// })
-// export const logoutUser=createAsyncThunk('logout',async(payload,thunkAPI)=>{
-//        const {access,refresh}=payload
-//          try{
-//            const res=await axios.post('http://127.0.0.1:8000/api/v1/logout/',{refresh},
-//              { headers: { Authorization: `Bearer ${access}` } })
-//             return res.data
-//          }
-//          catch(error){
-//            return thunkAPI.rejectWithValue(error.response?.data || "cant logged out" ) 
-//          }
-// })
 
 export const searchByBlog=createAsyncThunk('search/',async(payload,thunkAPI)=>{
     const {clickedState}=payload
@@ -279,29 +210,33 @@ export const getBlog=createAsyncThunk('blog/',async(payload,thunkAPI)=>{
 })
 
 export const addBlog=createAsyncThunk('addblog/',async(payload,thunkAPI)=>{
-    
+          
           try{
           const res=await axiosInstance.post('blogs/',payload)
-          console.log(res.data)
+          
           return res.data
       }
-      catch(error){
+      catch(error){ 
+         
         
-        return thunkAPI.rejectWithValue(error?.response?.data || 'error adding blog')
+        return thunkAPI.rejectWithValue(error?.response?.data?.detail || 'error adding blog')
       }
 })
 
-export const RequestChange=createAsyncThunk('requestchange',async(payload,thunkAPI)=>{
+export const RequestChange=createAsyncThunk('/requestchange',async(payload,thunkAPI)=>{
 
     
     try{
     const res=await axiosInstance.post('request-permission/',payload)
     
-    return(res.data.message)
+    return(res.data)
     }
-    catch(error){
-        return thunkAPI.rejectWithValue(error.response.data.message)
-    }
+   catch (error) {
+    
+    return thunkAPI.rejectWithValue(
+        error.response?.data?.message || "Something went wrong"
+    )
+}
     
 })
 

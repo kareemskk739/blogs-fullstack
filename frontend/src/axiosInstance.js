@@ -1,9 +1,6 @@
 import axios from "axios";
 
-
 const baseURL=import.meta.env.VITE_BACKEND_BASE_URL
-
-
 
 const axiosInstance=axios.create({
     baseURL:baseURL,
@@ -29,39 +26,6 @@ axiosInstance.interceptors.request.use((config)=>{
         Promise.reject(error)}
 
 )
-
-
-// axiosInstance.interceptors.response.use((response)=>
-// {   
-//     return response},
-//     async(error)=>{
-//         const orginalRequest=error.config
-//         
-//         if(error.response?.status == 401 && !orginalRequest._retry){
-//             orginalRequest._retry=true
-//             const refresh=localStorage.getItem('refresh')
-//             if(!refresh){
-//                 window.location.href='/login'
-//                 return Promise.reject(error)
-//             }
-//             try{
-//                const response = await axiosInstance.post('api/v1/token/refresh/',{refresh}) 
-//                const newAccess= await response.data.access
-//                localStorage.setItem('access',newAccess)
-//                orginalRequest.headers.Authorization=`Bearer ${newAccess}`
-//                return axiosInstance(orginalRequest)
-//             }
-//             catch(error){
-//               localStorage.removeItem('access')
-//               localStorage.removeItem('refresh')
-//               window.location.href('/login')
-//             }
-
-//         }
-//         return Promise.reject(error)
-
-//     }
-// )
 
 
 
