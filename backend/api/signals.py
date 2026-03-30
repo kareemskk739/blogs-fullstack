@@ -17,14 +17,6 @@ def add_user_to_a_group(sender,instance,created,*args,**kwargs):
 post_save.connect(add_user_to_a_group,sender=User)
 
 
-# def add_exsisting_user_to_a_group(sender,request,user,*args,**kwargs):
-#     print(user.groups.all())
-#     if not user.is_superuser:  
-#         if not user.groups.exists():
-            
-#             viewer_group, _ = Group.objects.get_or_create(name='Viewer')
-#             user.groups.add(viewer_group)
 
-# user_logged_in.connect(add_exsisting_user_to_a_group,sender=User)
 
 
