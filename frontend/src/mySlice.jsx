@@ -24,7 +24,7 @@ const mySlice=createSlice({
     },
     extraReducers:(builder)=>{
     builder.addCase(getBlogsData.fulfilled,(state,action)=>{
-           console.log(action.payload)
+           
            state.blogsData=action.payload
            state.errorMessage=null
     })
@@ -37,7 +37,7 @@ const mySlice=createSlice({
           state.commentsData=action.payload
     })
     builder.addCase(getOwnersData.fulfilled,(state,action)=>{
-          console.log(action.payload)
+          
           state.ownersData=action.payload
 
     })
@@ -49,7 +49,7 @@ const mySlice=createSlice({
     // builder.addCase(loginUser.fulfilled,(state,action)=>{
     //     state.errorMessage=null
     //     state.isLoggedIn=true
-    //     console.log(action.payload)
+    //     
     //     state.accessToken=action.payload.access
     //     state.refreshToken=action.payload.refresh
     //     localStorage.setItem('access',action.payload.access)
@@ -57,7 +57,7 @@ const mySlice=createSlice({
        
     // })
     // builder.addCase(loginUser.rejected,(state,action)=>{
-    //       console.log(action.payload)
+    //       
 
     //      state.errorMessage=action.payload.detail
     // })
@@ -65,7 +65,7 @@ const mySlice=createSlice({
     // builder.addCase(logoutUser.fulfilled, (state,action) => {
     //   localStorage.removeItem("access");
     //   localStorage.removeItem("refresh");
-    //   console.log(action.payload)
+    //   
     //   state.isLoggedIn=false
     // })
 
@@ -74,7 +74,7 @@ const mySlice=createSlice({
     // })
 
     builder.addCase(addBlog.fulfilled,(state,action)=>{
-        console.log(action.payload)
+        
 
          state.message=`Successfully added the blog with title: ${action.payload.title}`   
          state.errorMessage=null
@@ -102,7 +102,7 @@ const mySlice=createSlice({
         }
           }
           
-        console.log(action.payload.data)
+        
         switch (action.payload.clickedState) {
             case 'blogs':
                 state.blogsData=action.payload.data
@@ -138,7 +138,7 @@ const mySlice=createSlice({
          state.message=action.payload
     })
     .addCase(RequestChange.rejected,(state,action)=>{
-        console.log(action.payload)
+        
         state.message=action.payload
     })
 
@@ -153,7 +153,7 @@ const mySlice=createSlice({
 export const getBlogsData=createAsyncThunk('blogs/',async(payload,thunkAPI)=>{
       try{
          const res= await axiosInstance.get('/blogs/')
-         console.log(res.data.results)
+         
          return res.data
       }
       catch(error){
@@ -166,13 +166,13 @@ export const getBlogsData=createAsyncThunk('blogs/',async(payload,thunkAPI)=>{
 
 export const getOwnersData=createAsyncThunk('owners/',async()=>{
     const response=await axios.get('http://127.0.0.1:8000/api/v1/owners/')
-    console.log(response.data)
+    
     return response.data
 })
 
 export const getCommentsData=createAsyncThunk('comments/',async()=>{
     const response=await axios.get('http://127.0.0.1:8000/api/v1/comments/')
-    console.log(response.data)
+    
     return response.data
 })
 
@@ -196,7 +196,7 @@ export const getCommentsData=createAsyncThunk('comments/',async()=>{
 //        return response.data
 //     }
 //     catch(error){
-//         console.log(error.response)
+//         
 //       return thunkAPI.rejectWithValue(
 //         error.response?.data || "cant log in " 
 //       )
@@ -216,18 +216,18 @@ export const getCommentsData=createAsyncThunk('comments/',async()=>{
 
 export const searchByBlog=createAsyncThunk('search/',async(payload,thunkAPI)=>{
     const {clickedState}=payload
-    console.log(payload.val)
+    
   
     try{ 
          switch (clickedState) {
             case 'blogs':
                 const resp=await axiosInstance.get(`/blogs/?search=${payload.val}`)
-                console.log(resp.data.results)
+                
                 return{
                     data:resp.data,clickedState}
             case 'owners':
                 const re=await axiosInstance.get(`/owners/?search=${payload.val}`)
-                console.log(re.data.results)
+                
                  return{
                     data:re.data,clickedState}
 
@@ -241,7 +241,7 @@ export const searchByBlog=createAsyncThunk('search/',async(payload,thunkAPI)=>{
         
     }
     catch(error){
-        console.log(error)
+        
         return thunkAPI.rejectWithValue(error.response?.data?.detail || "cant get the value"  )
     }
     
@@ -256,7 +256,7 @@ export const getPaginatedResults=createAsyncThunk('page/',async(payload,thunkAPI
             url += `&search=${payload.searchVal}`  // & not /?
         }
 
-        console.log(url)  // /blogs/?page=1&search=django
+          // /blogs/?page=1&search=django
         const res = await axiosInstance.get(url)
         return res.data
     }
@@ -279,23 +279,23 @@ export const getBlog=createAsyncThunk('blog/',async(payload,thunkAPI)=>{
 })
 
 export const addBlog=createAsyncThunk('addblog/',async(payload,thunkAPI)=>{
-    console.log(payload)
+    
           try{
           const res=await axiosInstance.post('blogs/',payload)
           return res.data
       }
       catch(error){
-        console.log(error)
+        
         return thunkAPI.rejectWithValue(error?.response?.data || 'error adding blog')
       }
 })
 
 export const RequestChange=createAsyncThunk('requestchange',async(payload,thunkAPI)=>{
 
-    console.log(payload)
+    
     try{
     const res=await axiosInstance.post('request-permission/',payload)
-    console.log(res)
+    
     return(res.data.message)
     }
     catch(error){

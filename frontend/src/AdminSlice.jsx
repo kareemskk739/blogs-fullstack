@@ -16,7 +16,7 @@ const AdminSlice=createSlice({
          state.errorMessage=null
       })
       builder.addCase(getPendingRequests.rejected,(state,action)=>{
-         console.log(action.payload)
+         
          state.errorMessage=action.payload.message
       })
       .addCase(changeUserGroup.fulfilled,(state,action)=>{
@@ -38,11 +38,11 @@ export const changeUserGroup=createAsyncThunk('/changegroup',async(payload,thunk
    
     try{
      const res=await axiosInstance.post('change-group/',payload)
-     console.log(res)
+     
      return res.data
     }
      catch(e){
-        console.log(e)
+        
         return thunkAPI.rejectWithValue({
     message: error.response?.data?.detail || "Error",
   })
@@ -56,11 +56,11 @@ export const changeUserGroup=createAsyncThunk('/changegroup',async(payload,thunk
 export const getPendingRequests=createAsyncThunk('getpendingrequests/',async(payload,thunkAPI)=>{
    try{
      const res=await axiosInstance.get('change-group/')
-     console.log(res)
+     
    return res.data
    }
    catch(error){
-      console.log(error.response)
+      
      return thunkAPI.rejectWithValue({
     message: error.response?.data?.detail || "Error",
   })

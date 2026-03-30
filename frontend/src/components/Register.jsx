@@ -27,7 +27,7 @@
 // });
 //   const dispatch=useDispatch()
 //   const {userRegister}=useSelector(state=>state.myReducer)
-//   console.log(userRegister)
+//   
 //   const navigate=useNavigate()
 //   return (
 //     <div>Register
@@ -54,7 +54,7 @@
 //           resetForm()
 //           }
 //           catch(error){
-//           console.log(error)
+//           
 //           }
 //           finally{
 //             setSubmitting(false);
@@ -210,7 +210,7 @@ function Register() {
               
               resetForm()
             } catch (error) {
-              console.log(error)
+              
             } finally {
               setSubmitting(false)
               setTimeout(()=>{

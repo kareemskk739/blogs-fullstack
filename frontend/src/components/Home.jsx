@@ -41,7 +41,7 @@
 //   }
  
 //   const {blogsData,ownersData,commentsData,errorMessage,accessToken,refreshToken,isLoggedIn}=useSelector(state=>state.myReducer)
-//  console.log(blogsData)
+//  
 //   const logoutBtn=()=>{
 //      dispatch(logoutUser({ access: accessToken, refresh: refreshToken }))
      
@@ -165,7 +165,7 @@ function Home() {
         break
       case 'owners':
         dispatch(getOwnersData())
-        console.log(ownersData)
+        
         break
       default:
         break
@@ -261,7 +261,7 @@ function Home() {
           value={searchVal}
           onChange={(e) => {
             const value = e.target.value
-            console.log(errorMessage)
+            
             setSearchVal(value)
             dispatch(searchByBlog({'clickedState':clickedState,'val':value}))
           }}

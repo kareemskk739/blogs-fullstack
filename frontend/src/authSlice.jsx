@@ -44,14 +44,14 @@ export const loginUser=createAsyncThunk('login/',async(payload,thunkAPI)=>{
 })
 export const logoutUser=createAsyncThunk('logout',async(payload,thunkAPI)=>{
        const {refresh}=payload
-       console.log(refresh)
+       
          try{
            const res=await axios.post('http://127.0.0.1:8000/api/v1/logout/',{refresh})
-            console.log(res.data)
+            
             return res.data
          }
          catch(error){
-          console.log(error)
+          
           return thunkAPI.rejectWithValue(error.response?.data?.detail || "Cannot logout") 
 
          }
@@ -79,7 +79,7 @@ const authSlice=createSlice({
     })
     builder.addCase(loginUser.fulfilled,(state,action)=>{
         state.errorMessage=null
-        console.log(state.errorMessage)
+        
         state.isLoggedIn=true
         
         state.accessToken=action.payload.access
@@ -88,7 +88,7 @@ const authSlice=createSlice({
         localStorage.setItem('refresh',action.payload.refresh)
 
     const decoded = JSON.parse(atob(action.payload.access.split('.')[1]))
-    console.log(decoded.username)   
+       
     localStorage.setItem('username', decoded.username)  
        
     })
@@ -99,7 +99,7 @@ const authSlice=createSlice({
 
     builder.addCase(logoutUser.fulfilled, (state,action) => {
 
-      console.log('logout fulfilled!')  
+        
 
       localStorage.removeItem('username')
       localStorage.removeItem("access");
@@ -108,7 +108,7 @@ const authSlice=createSlice({
       state.refreshToken = null 
       state.isLoggedIn=false
       state.errorMessage=null
-      console.log(localStorage.getItem('username'))
+      )
 
     })
 

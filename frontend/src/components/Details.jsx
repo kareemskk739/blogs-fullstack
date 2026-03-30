@@ -31,7 +31,7 @@ import { useNavigate } from 'react-router-dom'
 function Details() {
     const { blog } = useSelector(state => state.myReducer)
     const navigate = useNavigate()
-    console.log(blog)
+    
     return (
         <div className="min-h-screen bg-gray-100">
 

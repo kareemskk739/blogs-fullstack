@@ -25,7 +25,7 @@ axiosInstance.interceptors.request.use((config)=>{
     },
 
        (error) => {
-        console.log(error)
+        
         Promise.reject(error)}
 
 )
@@ -36,7 +36,7 @@ axiosInstance.interceptors.request.use((config)=>{
 //     return response},
 //     async(error)=>{
 //         const orginalRequest=error.config
-//         console.log(error.response.status)
+//         
 //         if(error.response?.status == 401 && !orginalRequest._retry){
 //             orginalRequest._retry=true
 //             const refresh=localStorage.getItem('refresh')
@@ -69,7 +69,7 @@ axiosInstance.interceptors.response.use((response)=>{
     return response
 },
   async(error)=>{
-     console.log(error.response.status)
+     
      const orginalRequest=error.config
      if(error.response.status === 401 || error.response.status === 403 && !orginalRequest._retry){
         orginalRequest._retry=true
@@ -89,7 +89,7 @@ axiosInstance.interceptors.response.use((response)=>{
             localStorage.removeItem('access')
             localStorage.removeItem('refresh')
             window.location.href='/login'
-            console.log(error)
+            
             return Promise.reject(error)
             
         }
