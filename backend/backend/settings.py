@@ -27,7 +27,7 @@ SECRET_KEY = 'django-insecure-^sa81=2&ifg2qb-3u713=-f^m+@u)5getfz(zqw=pdqudbggw7
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ["blog-space.com", "127.0.0.1"]
+ALLOWED_HOSTS = ["blog-backend-ormm.onrender.com"]
 
 STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")
 
