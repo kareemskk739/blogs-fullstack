@@ -173,9 +173,12 @@ function Home() {
   }
 
   const logoutBtn = async () => {
-    setTimeout(()=>navigate('/login'),2000)
-    await dispatch(logoutUser({ access: accessToken, refresh: refreshToken })).unwrap() 
-    
+    try {
+        await dispatch(logoutUser({ access: accessToken, refresh: refreshToken })).unwrap()
+        navigate('/login')   
+    } catch (error) {
+        navigate('/login')  
+    }
 
   }
 
@@ -280,7 +283,7 @@ function Home() {
     
     
     { errorMessage && <div className="mx-auto w-1/2 mb-4 bg-red-200 text-red-700 p-3 rounded-lg text-center">
-    <p style={{paddingBottom:'0px'}}>no data found by your search</p>
+    <p style={{pBingBottom:'0px'}}>no data found by your search</p>
     </div>}
     
       

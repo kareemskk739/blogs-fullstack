@@ -11,7 +11,7 @@ import { useNavigate } from "react-router-dom";
 
 const mySlice=createSlice({
     name:'myReducer',
-    initialState:{blogsData:[],commentsData:[],ownersData:[],searching:false,blog:{},clickedState:'',message:'',errorMessage:null},
+    initialState:{blogsData:[],commentsData:[],ownersData:[],searching:false,blog:{},clickedState:'',message:null,errorMessage:null},
     reducers:{
        setClickedState:(state,action)=>{
       state.clickedState=action.payload
@@ -135,7 +135,7 @@ const mySlice=createSlice({
         state.blog=action.payload
     })
     .addCase(RequestChange.fulfilled,(state,action)=>{
-         state.message=action.payload
+         state.message=action.payload.message
     })
     .addCase(RequestChange.rejected,(state,action)=>{
         
@@ -282,6 +282,7 @@ export const addBlog=createAsyncThunk('addblog/',async(payload,thunkAPI)=>{
     
           try{
           const res=await axiosInstance.post('blogs/',payload)
+          console.log(res.data)
           return res.data
       }
       catch(error){

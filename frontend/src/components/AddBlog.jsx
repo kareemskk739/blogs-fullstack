@@ -29,7 +29,7 @@ function AddBlog() {
 const username = decoded?.username
 const currentOwner = ownersData?.find(owner => owner.name === username)
 const ownerId = currentOwner?.id
-
+  console.log(message)
 
     useEffect(() => {
         dispatch(getOwnersData())
