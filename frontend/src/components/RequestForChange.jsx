@@ -4,6 +4,7 @@ import { emptyMessage, RequestChange } from '../mySlice'
 
 function RequestForChange() {
   const { message, errorMessage } = useSelector((state) => state.myReducer)
+  console.log(message,errorMessage)
   const [reason, setReason] = useState('')
   const dispatch = useDispatch()
   const handleRequest = async () => {
